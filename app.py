@@ -5,8 +5,8 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-app.config["MONG0_DBNAME"] = 'task_manager'
-app.config["MONGO-URI"] = 'mongo "mongodb+srv://myfirstcluster-2pvma.mongodb.net/task_master"  --username GaryCS'
+app.config["MONGO_DBNAME"] = 'task_manager'
+app.config["MONGO_URI"] = 'mongodb+srv://GaryCS:GaryCoding1105@myfirstcluster-2pvma.mongodb.net/task_manager?retryWrites=true&w=majority'
 
 mongo = PyMongo(app)
 
@@ -16,6 +16,6 @@ def get_tasks():
     return render_template("tasks.html", tasks=mongo.db.tasks.find())
 
 if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')),
-            debug=True)
+    app.run(host=os.getenv('IP', '0.0.0.0'), 
+    port=int(os.getenv('PORT', 8080)), 
+    debug=True)
